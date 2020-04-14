@@ -1,5 +1,7 @@
 package com.bridgelabz.quantitymeasurement.service.implementation;
 
+import com.bridgelabz.quantitymeasurement.Excepion.QuantityMeasurementException;
+import com.bridgelabz.quantitymeasurement.dto.UnitConverterDTO;
 import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
 import com.bridgelabz.quantitymeasurement.service.IQuantityMeasurementService;
@@ -20,5 +22,15 @@ public class MeasurementService implements IQuantityMeasurementService {
     public List<SubTypes> getAllSubTypes(Units units) {
         return Arrays.stream(SubTypes.values()).filter(subTypes -> subTypes.units.equals(units))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UnitConverterDTO concertUnit(UnitConverterDTO unitConverterDTO) {
+        if (unitConverterDTO.initialUnit.units.equals(unitConverterDTO.outputUnit.units)) {
+            double outPutValue = (unitConverterDTO.initialValue * unitConverterDTO.initialUnit.conversionUnit) / unitConverterDTO.outputUnit.conversionUnit;
+            unitConverterDTO.setOutputValue(outPutValue);
+            return unitConverterDTO;
+        }
+        throw new QuantityMeasurementException("Unit type doesn't exists", QuantityMeasurementException.ExceptionType.UNIT_TYPE_DOES_NOT_EXIST);
     }
 }

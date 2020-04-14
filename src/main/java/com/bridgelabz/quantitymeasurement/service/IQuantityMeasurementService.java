@@ -1,5 +1,6 @@
 package com.bridgelabz.quantitymeasurement.service;
 
+import com.bridgelabz.quantitymeasurement.dto.UnitConverterDTO;
 import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
 
@@ -11,4 +12,5 @@ public interface IQuantityMeasurementService {
 
     List<SubTypes> getAllSubTypes(Units units);
 
+    UnitConverterDTO concertUnit(UnitConverterDTO unitConverterDTO);
 }
