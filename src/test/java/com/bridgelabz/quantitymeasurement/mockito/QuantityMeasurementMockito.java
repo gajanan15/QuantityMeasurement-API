@@ -1,6 +1,7 @@
 package com.bridgelabz.quantitymeasurement.mockito;
 
 import com.bridgelabz.quantitymeasurement.controller.QuantityMeasurementController;
+import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
 import com.bridgelabz.quantitymeasurement.service.implementation.MeasurementService;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,15 @@ public class QuantityMeasurementMockito {
         when(measurementService.getAllUnitTypes()).thenReturn(Arrays.asList(unitsList));
         this.mockMvc.perform(get("/unit/type")).andDo(print())
                 .andExpect(status().isOk()).andExpect(content().json(Arrays.toString(unitsList)));
-        verify(measurementService).getAllUnitTypes();
+
+    }
+
+    @Test
+    void getAllMeasurementSubTypes() throws Exception {
+        SubTypes[] subTypes = {SubTypes.INCH, SubTypes.FEET, SubTypes.CENTIMETER, SubTypes.YARD};
+        when(measurementService.getAllSubTypes(Units.LENGTH)).thenReturn(Arrays.asList(subTypes));
+        this.mockMvc.perform(get("/unit/type/LENGTH"))
+                .andExpect(status().isOk()).andExpect(content().json(Arrays.toString(subTypes)));
+        verify(measurementService).getAllSubTypes(Units.LENGTH);
     }
 }
