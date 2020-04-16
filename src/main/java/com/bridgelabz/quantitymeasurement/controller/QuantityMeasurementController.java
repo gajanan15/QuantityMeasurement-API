@@ -3,8 +3,11 @@ package com.bridgelabz.quantitymeasurement.controller;
 import com.bridgelabz.quantitymeasurement.dto.UnitConverterDTO;
 import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
+import com.bridgelabz.quantitymeasurement.respone.ResponseDTO;
 import com.bridgelabz.quantitymeasurement.service.IQuantityMeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,17 +18,19 @@ public class QuantityMeasurementController {
     IQuantityMeasurementService measurementService;
 
     @GetMapping("/unit/type")
-    public List<Units> getAllQuantityTypes() {
-        return measurementService.getAllUnitTypes();
+    public ResponseEntity<List<Units>> getAllQuantityTypes() {
+        return new ResponseEntity<>(measurementService.getAllUnitTypes(), HttpStatus.OK);
     }
 
     @GetMapping("/unit/type/{unitType}")
-    public List<SubTypes> getAllUnitByUnitTypes(@PathVariable("unitType") Units units) {
-        return measurementService.getAllSubTypes(units);
+    public ResponseEntity<List<SubTypes>> getAllUnitByUnitTypes(@PathVariable("unitType") Units units) {
+        return new ResponseEntity<>(measurementService.getAllSubTypes(units),HttpStatus.OK);
     }
 
     @PostMapping("/unit/convert")
-    public UnitConverterDTO convertUintValue(@RequestBody UnitConverterDTO unitConverterDTO){
-        return measurementService.concertUnit(unitConverterDTO);
+    public ResponseEntity<ResponseDTO> convertUintValue(@RequestBody UnitConverterDTO unitConverterDTO){
+        double convertUnit = measurementService.convertUnit(unitConverterDTO);
+        ResponseDTO responseDTO = new ResponseDTO(200, "Conversion Successful", convertUnit);
+        return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 }

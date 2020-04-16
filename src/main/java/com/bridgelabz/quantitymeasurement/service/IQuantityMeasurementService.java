@@ -12,5 +12,5 @@ public interface IQuantityMeasurementService {
 
     List<SubTypes> getAllSubTypes(Units units);
 
-    UnitConverterDTO concertUnit(UnitConverterDTO unitConverterDTO);
+    double convertUnit(UnitConverterDTO unitConverterDTO);
 }

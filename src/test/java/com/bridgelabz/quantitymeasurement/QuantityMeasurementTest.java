@@ -1,5 +1,6 @@
 package com.bridgelabz.quantitymeasurement;
 
+import com.bridgelabz.quantitymeasurement.dto.UnitConverterDTO;
 import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
 import com.bridgelabz.quantitymeasurement.service.implementation.MeasurementService;
@@ -24,4 +25,25 @@ public class QuantityMeasurementTest {
         Assert.assertEquals(4,allSubTypes.size());
     }
 
+    @Test
+    void givenQuantityMeasurementInVolume_When1FeetConvertToInch_ShouldReturn12Inch() {
+        MeasurementService measurementService = new MeasurementService();
+        UnitConverterDTO unitConverterDTO = new UnitConverterDTO();
+        unitConverterDTO.setInitialUnit(SubTypes.FEET);
+        unitConverterDTO.setOutputUnit(SubTypes.INCH);
+        unitConverterDTO.setInitialValue(1.0);
+        double convertedResult = measurementService.convertUnit(unitConverterDTO);
+        Assert.assertEquals(12.0,convertedResult,0.0);
+    }
+
+    @Test
+    void givenQuantityMeasurementInTemperature_When0CelsiusConvertToFahrenheit_ShouldReturn32Fahrenheit() {
+        MeasurementService measurementService = new MeasurementService();
+        UnitConverterDTO unitConverterDTO = new UnitConverterDTO();
+        unitConverterDTO.setInitialUnit(SubTypes.CELSIUS);
+        unitConverterDTO.setOutputUnit(SubTypes.FAHRENHEIT);
+        unitConverterDTO.setInitialValue(0.0);
+        double convertedResult = measurementService.convertUnit(unitConverterDTO);
+        Assert.assertEquals(32.0,convertedResult,0.0);
+    }
 }

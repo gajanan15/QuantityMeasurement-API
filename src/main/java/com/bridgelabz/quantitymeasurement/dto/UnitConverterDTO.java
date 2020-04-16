@@ -4,33 +4,21 @@ import com.bridgelabz.quantitymeasurement.enumeration.SubTypes;
 import com.bridgelabz.quantitymeasurement.enumeration.Units;
 
 public class UnitConverterDTO {
-    public double initialValue;
-    public SubTypes initialUnit;
     public Units units;
-    public double outputValue;
+    public SubTypes initialUnit;
+    public double initialValue;
     public SubTypes outputUnit;
+    public double outputValue;
 
-    public void setOutputValue(double outputValue) {
-        this.outputValue = outputValue;
+    public void setOutputUnit(SubTypes outputUnit) {
+        this.outputUnit = outputUnit;
     }
 
-    public double getInitialValue() {
-        return initialValue;
+    public void setInitialValue(double initialValue) {
+        this.initialValue = initialValue;
     }
 
-    public SubTypes getInitialUnit() {
-        return initialUnit;
-    }
-
-    public Units getUnits() {
-        return units;
-    }
-
-    public double getOutputValue() {
-        return outputValue;
-    }
-
-    public SubTypes getOutputUnit() {
-        return outputUnit;
+    public void setInitialUnit(SubTypes initialUnit) {
+        this.initialUnit = initialUnit;
     }
 }
